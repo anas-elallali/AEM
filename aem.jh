@@ -1,0 +1,103 @@
+
+entity Network {
+	//ownerId ?null,
+    //parentNetwork
+    //addressId
+    name String required,
+    description String maxlength(500),
+    avatar ImageBlob,
+    type NetworkType required,
+    status Boolean required
+}
+
+enum NetworkType {
+    AEM_ENTITY,
+    AEM_RESIDENCE,
+    AEM_SAAD,
+    AEM_SSIAD,
+    AEM_NEWS,
+    AEM_ANIMATION,
+    AEM_FAMILY,
+    AEM_COMMUNITY,
+    AEM_COORDINATION,
+    UNKNOWN
+}
+
+entity Address {
+	street String required maxlength(255),
+    additional String maxlength(255),
+    city String required maxlength(255),
+    type AddressType required,
+    zipCode String required maxlength(10)
+}
+
+enum AddressType {
+    PUBLIC,
+    INDIVIDUAL
+}
+
+entity NetworkMember {
+}
+
+entity Roles {
+    role Role required
+}
+
+enum Role {
+	ADMIN,
+    ANIMATOR,
+    BENEF,
+    CAREGIVER,
+    COORDINATOR,
+    FAMILY,
+    HOUSING_ATTENDANT,
+    MEDIC,
+    MEDIC_AUXILIARY,
+    AGENT,
+    PRO,
+    PUBLISHER,
+    RESIDENCE,
+    SPECTATOR
+}
+
+entity Profile {
+	firstName String required maxlength(100),
+    lastName String required maxlength(100),
+    email String maxlength(200),
+    avatar ImageBlob,
+    gender Gender required,
+    birthDate Instant required,
+    phoneNumber String maxlength(15)
+}
+
+entity RelationShip {
+    relationShip String required minlength(3) maxlength(100)
+}
+
+enum Gender{
+	MALE,
+    FEMALE
+}
+
+
+relationship ManyToOne {
+	Network{owner} to Profile{networks},
+    NetworkMember{network required} to Network{networkMember},
+    NetworkMember{profile required} to Profile{networkMember},
+    Roles{networkMember required} to NetworkMember{roles},
+    RelationShip{networkMember required} to NetworkMember
+}
+
+relationship OneToOne {
+	Network{parentNetwork} to Network,
+	Network{address} to Address,
+    Profile{address required} to Address,
+    Profile{user required} to User
+}
+
+
+paginate * with pagination
+
+service * with serviceImpl
+
+dto * with mapstruct
