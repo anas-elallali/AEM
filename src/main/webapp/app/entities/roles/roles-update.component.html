@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-roles-heading" jhiTranslate="aemApp.roles.home.createOrEditLabel">Create or edit a Roles</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.roles.role" for="field_role">Role</label>
+                    <select class="form-control" name="role" formControlName="role" id="field_role">
+                        <option value="ADMIN">{{ 'aemApp.Role.ADMIN' | translate }}</option>
+                        <option value="ANIMATOR">{{ 'aemApp.Role.ANIMATOR' | translate }}</option>
+                        <option value="BENEF">{{ 'aemApp.Role.BENEF' | translate }}</option>
+                        <option value="CAREGIVER">{{ 'aemApp.Role.CAREGIVER' | translate }}</option>
+                        <option value="COORDINATOR">{{ 'aemApp.Role.COORDINATOR' | translate }}</option>
+                        <option value="FAMILY">{{ 'aemApp.Role.FAMILY' | translate }}</option>
+                        <option value="HOUSING_ATTENDANT">{{ 'aemApp.Role.HOUSING_ATTENDANT' | translate }}</option>
+                        <option value="MEDIC">{{ 'aemApp.Role.MEDIC' | translate }}</option>
+                        <option value="MEDIC_AUXILIARY">{{ 'aemApp.Role.MEDIC_AUXILIARY' | translate }}</option>
+                        <option value="AGENT">{{ 'aemApp.Role.AGENT' | translate }}</option>
+                        <option value="PRO">{{ 'aemApp.Role.PRO' | translate }}</option>
+                        <option value="PUBLISHER">{{ 'aemApp.Role.PUBLISHER' | translate }}</option>
+                        <option value="RESIDENCE">{{ 'aemApp.Role.RESIDENCE' | translate }}</option>
+                        <option value="SPECTATOR">{{ 'aemApp.Role.SPECTATOR' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('role')!.invalid && (editForm.get('role')!.dirty || editForm.get('role')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('role')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.roles.networkMember" for="field_networkMember">Network Member</label>
+                    <select class="form-control" id="field_networkMember" name="networkMember" formControlName="networkMemberId">
+                        <option *ngIf="!editForm.get('networkMemberId')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="networkMemberOption.id" *ngFor="let networkMemberOption of networkmembers; trackBy: trackById">{{ networkMemberOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('networkMemberId')!.invalid && (editForm.get('networkMemberId')!.dirty || editForm.get('networkMemberId')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('networkMemberId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

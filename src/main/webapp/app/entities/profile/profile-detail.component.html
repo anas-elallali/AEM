@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="profile">
+            <h2><span jhiTranslate="aemApp.profile.detail.title">Profile</span> {{ profile.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="aemApp.profile.firstName">First Name</span></dt>
+                <dd>
+                    <span>{{ profile.firstName }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.lastName">Last Name</span></dt>
+                <dd>
+                    <span>{{ profile.lastName }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.email">Email</span></dt>
+                <dd>
+                    <span>{{ profile.email }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.avatar">Avatar</span></dt>
+                <dd>
+                    <div *ngIf="profile.avatar">
+                        <a (click)="openFile(profile.avatarContentType, profile.avatar)">
+                            <img [src]="'data:' + profile.avatarContentType + ';base64,' + profile.avatar" style="max-width: 100%;" alt="profile image"/>
+                        </a>
+                        {{ profile.avatarContentType }}, {{ byteSize(profile.avatar) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.gender">Gender</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'aemApp.Gender.' + profile.gender }}">{{ profile.gender }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.birthDate">Birth Date</span></dt>
+                <dd>
+                    <span>{{ profile.birthDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{ profile.phoneNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.address">Address</span></dt>
+                <dd>
+                    <div *ngIf="profile.addressId">
+                        <a [routerLink]="['/address', profile.addressId, 'view']">{{ profile.addressId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="aemApp.profile.user">User</span></dt>
+                <dd>
+                    {{ profile.userId }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/profile', profile.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

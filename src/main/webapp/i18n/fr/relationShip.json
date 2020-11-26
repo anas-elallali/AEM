@@ -1,0 +1,23 @@
+{
+  "aemApp": {
+    "relationShip": {
+      "home": {
+        "title": "RelationShips",
+        "createLabel": "Créer un nouveau Relation Ship",
+        "createOrEditLabel": "Créer ou éditer un Relation Ship",
+        "notFound": "Aucun Relation Ship trouvé"
+      },
+      "created": "Un nouveau Relation Ship a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Relation Ship avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Relation Ship avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Relation Ship {{ id }} ?"
+      },
+      "detail": {
+        "title": "Relation Ship"
+      },
+      "relationShip": "Relation Ship",
+      "networkMember": "Network Member"
+    }
+  }
+}

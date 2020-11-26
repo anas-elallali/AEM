@@ -1,0 +1,21 @@
+{
+  "aemApp": {
+    "Role": {
+      "null": "",
+      "ADMIN": "ADMIN",
+      "ANIMATOR": "ANIMATOR",
+      "BENEF": "BENEF",
+      "CAREGIVER": "CAREGIVER",
+      "COORDINATOR": "COORDINATOR",
+      "FAMILY": "FAMILY",
+      "HOUSING_ATTENDANT": "HOUSING_ATTENDANT",
+      "MEDIC": "MEDIC",
+      "MEDIC_AUXILIARY": "MEDIC_AUXILIARY",
+      "AGENT": "AGENT",
+      "PRO": "PRO",
+      "PUBLISHER": "PUBLISHER",
+      "RESIDENCE": "RESIDENCE",
+      "SPECTATOR": "SPECTATOR"
+    }
+  }
+}

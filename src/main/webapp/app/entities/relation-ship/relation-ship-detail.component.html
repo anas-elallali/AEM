@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="relationShip">
+            <h2><span jhiTranslate="aemApp.relationShip.detail.title">Relation Ship</span> {{ relationShip.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="aemApp.relationShip.relationShip">Relation Ship</span></dt>
+                <dd>
+                    <span>{{ relationShip.relationShip }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.relationShip.networkMember">Network Member</span></dt>
+                <dd>
+                    <div *ngIf="relationShip.networkMemberId">
+                        <a [routerLink]="['/network-member', relationShip.networkMemberId, 'view']">{{ relationShip.networkMemberId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/relation-ship', relationShip.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

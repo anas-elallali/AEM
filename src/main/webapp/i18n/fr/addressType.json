@@ -1,0 +1,9 @@
+{
+  "aemApp": {
+    "AddressType": {
+      "null": "",
+      "PUBLIC": "PUBLIC",
+      "INDIVIDUAL": "INDIVIDUAL"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "RelationShip",
+  "fields": [
+    {
+      "fieldName": "relationShip",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMinlength": "3",
+      "fieldValidateRulesMaxlength": "100"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "networkMember",
+      "otherEntityRelationshipName": "relationShip",
+      "relationshipValidateRules": "required",
+      "relationshipName": "networkMember",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201126183854",
+  "entityTableName": "relation_ship",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

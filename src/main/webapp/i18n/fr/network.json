@@ -1,0 +1,30 @@
+{
+  "aemApp": {
+    "network": {
+      "home": {
+        "title": "Networks",
+        "createLabel": "Créer un nouveau Network",
+        "createOrEditLabel": "Créer ou éditer un Network",
+        "notFound": "Aucun Network trouvé"
+      },
+      "created": "Un nouveau Network a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Network avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Network avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Network {{ id }} ?"
+      },
+      "detail": {
+        "title": "Network"
+      },
+      "name": "Name",
+      "description": "Description",
+      "avatar": "Avatar",
+      "type": "Type",
+      "status": "Status",
+      "parentNetwork": "Parent Network",
+      "address": "Address",
+      "networkMember": "Network Member",
+      "owner": "Owner"
+    }
+  }
+}

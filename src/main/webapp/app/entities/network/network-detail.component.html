@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="network">
+            <h2><span jhiTranslate="aemApp.network.detail.title">Network</span> {{ network.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="aemApp.network.name">Name</span></dt>
+                <dd>
+                    <span>{{ network.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.description">Description</span></dt>
+                <dd>
+                    <span>{{ network.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.avatar">Avatar</span></dt>
+                <dd>
+                    <div *ngIf="network.avatar">
+                        <a (click)="openFile(network.avatarContentType, network.avatar)">
+                            <img [src]="'data:' + network.avatarContentType + ';base64,' + network.avatar" style="max-width: 100%;" alt="network image"/>
+                        </a>
+                        {{ network.avatarContentType }}, {{ byteSize(network.avatar) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'aemApp.NetworkType.' + network.type }}">{{ network.type }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.status">Status</span></dt>
+                <dd>
+                    <span>{{ network.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.parentNetwork">Parent Network</span></dt>
+                <dd>
+                    <div *ngIf="network.parentNetworkId">
+                        <a [routerLink]="['/network', network.parentNetworkId, 'view']">{{ network.parentNetworkId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.address">Address</span></dt>
+                <dd>
+                    <div *ngIf="network.addressId">
+                        <a [routerLink]="['/address', network.addressId, 'view']">{{ network.addressId }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="aemApp.network.owner">Owner</span></dt>
+                <dd>
+                    <div *ngIf="network.ownerId">
+                        <a [routerLink]="['/profile', network.ownerId, 'view']">{{ network.ownerId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/network', network.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
