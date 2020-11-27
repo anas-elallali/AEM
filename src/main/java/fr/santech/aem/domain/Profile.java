@@ -1,17 +1,14 @@
 package fr.santech.aem.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import fr.santech.aem.domain.enumeration.Gender;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
-import fr.santech.aem.domain.enumeration.Gender;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Profile.
@@ -19,8 +16,7 @@ import fr.santech.aem.domain.enumeration.Gender;
 @Entity
 @Table(name = "profile")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Profile implements Serializable {
-
+public class Profile extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -267,6 +263,7 @@ public class Profile implements Serializable {
     public void setNetworkMembers(Set<NetworkMember> networkMembers) {
         this.networkMembers = networkMembers;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

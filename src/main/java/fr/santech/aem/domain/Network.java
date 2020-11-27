@@ -1,17 +1,14 @@
 package fr.santech.aem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import fr.santech.aem.domain.enumeration.NetworkType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import fr.santech.aem.domain.enumeration.NetworkType;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Network.
@@ -19,8 +16,7 @@ import fr.santech.aem.domain.enumeration.NetworkType;
 @Entity
 @Table(name = "network")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Network implements Serializable {
-
+public class Network extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -217,6 +213,7 @@ public class Network implements Serializable {
     public void setOwner(Profile profile) {
         this.owner = profile;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
