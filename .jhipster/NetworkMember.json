@@ -1,0 +1,39 @@
+{
+  "name": "NetworkMember",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "roles",
+      "otherEntityRelationshipName": "networkMember",
+      "relationshipName": "roles"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "network",
+      "otherEntityRelationshipName": "networkMember",
+      "relationshipValidateRules": "required",
+      "relationshipName": "network",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "profile",
+      "otherEntityRelationshipName": "networkMember",
+      "relationshipValidateRules": "required",
+      "relationshipName": "profile",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201126183554",
+  "entityTableName": "network_member",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

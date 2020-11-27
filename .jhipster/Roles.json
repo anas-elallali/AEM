@@ -1,0 +1,32 @@
+{
+  "name": "Roles",
+  "fields": [
+    {
+      "fieldName": "role",
+      "fieldType": "Role",
+      "fieldValues": "ADMIN,ANIMATOR,BENEF,CAREGIVER,COORDINATOR,FAMILY,HOUSING_ATTENDANT,MEDIC,MEDIC_AUXILIARY,AGENT,PRO,PUBLISHER,RESIDENCE,SPECTATOR",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "networkMember",
+      "otherEntityRelationshipName": "roles",
+      "relationshipValidateRules": "required",
+      "relationshipName": "networkMember",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20201126183654",
+  "entityTableName": "roles",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

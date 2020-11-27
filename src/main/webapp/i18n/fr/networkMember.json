@@ -1,0 +1,24 @@
+{
+  "aemApp": {
+    "networkMember": {
+      "home": {
+        "title": "NetworkMembers",
+        "createLabel": "Créer un nouveau Network Member",
+        "createOrEditLabel": "Créer ou éditer un Network Member",
+        "notFound": "Aucun Network Member trouvé"
+      },
+      "created": "Un nouveau Network Member a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Network Member avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Network Member avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Network Member {{ id }} ?"
+      },
+      "detail": {
+        "title": "Network Member"
+      },
+      "roles": "Roles",
+      "network": "Network",
+      "profile": "Profile"
+    }
+  }
+}

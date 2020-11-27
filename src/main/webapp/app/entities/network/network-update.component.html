@@ -1,0 +1,126 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-network-heading" jhiTranslate="aemApp.network.home.createOrEditLabel">Create or edit a Network</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                    <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('description')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 500 }">
+                        This field cannot be longer than 500 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.avatar" for="field_avatar">Avatar</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('avatarContentType')!.value + ';base64,' + editForm.get('avatar')!.value" style="max-height: 100px;" *ngIf="editForm.get('avatar')!.value" alt="network image"/>
+                        <div *ngIf="editForm.get('avatar')!.value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{ editForm.get('avatarContentType')!.value }}, {{ byteSize(editForm.get('avatar')!.value) }}</span>
+                            <button type="button" (click)="clearInputImage('avatar', 'avatarContentType', 'file_avatar')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_avatar" (change)="setFileData($event, 'avatar', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="avatar" id="field_avatar"
+                           formControlName="avatar"/>
+                    <input type="hidden" class="form-control" name="avatarContentType" id="field_avatarContentType"
+                           formControlName="avatarContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" formControlName="type" id="field_type">
+                        <option value="AEM_ENTITY">{{ 'aemApp.NetworkType.AEM_ENTITY' | translate }}</option>
+                        <option value="AEM_RESIDENCE">{{ 'aemApp.NetworkType.AEM_RESIDENCE' | translate }}</option>
+                        <option value="AEM_SAAD">{{ 'aemApp.NetworkType.AEM_SAAD' | translate }}</option>
+                        <option value="AEM_SSIAD">{{ 'aemApp.NetworkType.AEM_SSIAD' | translate }}</option>
+                        <option value="AEM_NEWS">{{ 'aemApp.NetworkType.AEM_NEWS' | translate }}</option>
+                        <option value="AEM_ANIMATION">{{ 'aemApp.NetworkType.AEM_ANIMATION' | translate }}</option>
+                        <option value="AEM_FAMILY">{{ 'aemApp.NetworkType.AEM_FAMILY' | translate }}</option>
+                        <option value="AEM_COMMUNITY">{{ 'aemApp.NetworkType.AEM_COMMUNITY' | translate }}</option>
+                        <option value="AEM_COORDINATION">{{ 'aemApp.NetworkType.AEM_COORDINATION' | translate }}</option>
+                        <option value="UNKNOWN">{{ 'aemApp.NetworkType.UNKNOWN' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                           formControlName="status"/>
+                    <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.parentNetwork" for="field_parentNetwork">Parent Network</label>
+                    <select class="form-control" id="field_parentNetwork" name="parentNetwork" formControlName="parentNetworkId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="networkOption.id" *ngFor="let networkOption of parentnetworks; trackBy: trackById">{{ networkOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.address" for="field_address">Address</label>
+                    <select class="form-control" id="field_address" name="address" formControlName="addressId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="addressOption.id" *ngFor="let addressOption of addresses; trackBy: trackById">{{ addressOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="aemApp.network.owner" for="field_owner">Owner</label>
+                    <select class="form-control" id="field_owner" name="owner" formControlName="ownerId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackById">{{ profileOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

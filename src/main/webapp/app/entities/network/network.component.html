@@ -1,0 +1,102 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="aemApp.network.home.title">Networks</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-network" [routerLink]="['/network/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="aemApp.network.home.createLabel">
+            Create a new Network
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="networks?.length === 0">
+        <span jhiTranslate="aemApp.network.home.notFound">No networks found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="networks && networks.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="aemApp.network.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="aemApp.network.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="avatar"><span jhiTranslate="aemApp.network.avatar">Avatar</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="type"><span jhiTranslate="aemApp.network.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="status"><span jhiTranslate="aemApp.network.status">Status</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="parentNetworkId"><span jhiTranslate="aemApp.network.parentNetwork">Parent Network</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="addressId"><span jhiTranslate="aemApp.network.address">Address</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="ownerId"><span jhiTranslate="aemApp.network.owner">Owner</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let network of networks ;trackBy: trackId">
+                    <td><a [routerLink]="['/network', network.id, 'view']">{{ network.id }}</a></td>
+                    <td>{{ network.name }}</td>
+                    <td>{{ network.description }}</td>
+                    <td>
+                        <a *ngIf="network.avatar" (click)="openFile(network.avatarContentType, network.avatar)">
+                            <img [src]="'data:' + network.avatarContentType + ';base64,' + network.avatar" style="max-height: 30px;" alt="network image"/>
+                        </a>
+                        <span *ngIf="network.avatar">{{ network.avatarContentType }}, {{ byteSize(network.avatar) }}</span>
+                    </td>
+                    <td jhiTranslate="{{ 'aemApp.NetworkType.' + network.type }}">{{ network.type }}</td>
+                    <td>{{ network.status }}</td>
+                    <td>
+                        <div *ngIf="network.parentNetworkId">
+                            <a [routerLink]="['/network', network.parentNetworkId , 'view']" >{{ network.parentNetworkId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="network.addressId">
+                            <a [routerLink]="['/address', network.addressId , 'view']" >{{ network.addressId }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="network.ownerId">
+                            <a [routerLink]="['/profile', network.ownerId , 'view']" >{{ network.ownerId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/network', network.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/network', network.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(network)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="networks && networks.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>
