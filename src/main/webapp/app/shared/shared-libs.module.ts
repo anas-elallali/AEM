@@ -6,6 +6,7 @@ import { NgJhipsterModule } from 'ng-jhipster';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
+import { PrimengModule } from 'app/shared/primeng.module';
 
 @NgModule({
   exports: [
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FontAwesomeModule,
     ReactiveFormsModule,
     TranslateModule,
+    PrimengModule,
   ],
 })
 export class AemSharedLibsModule {}

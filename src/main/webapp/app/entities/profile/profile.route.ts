@@ -42,6 +42,11 @@ export const profileRoute: Routes = [
       authorities: [Authority.USER],
       defaultSort: 'id,asc',
       pageTitle: 'aemApp.profile.home.title',
+      breadcrumb: [
+        {
+          title: 'aemApp.profile.home.title',
+        },
+      ],
     },
     canActivate: [UserRouteAccessService],
   },

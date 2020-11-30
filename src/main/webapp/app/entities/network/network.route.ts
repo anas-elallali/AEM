@@ -42,6 +42,11 @@ export const networkRoute: Routes = [
       authorities: [Authority.USER],
       defaultSort: 'id,asc',
       pageTitle: 'aemApp.network.home.title',
+      breadcrumb: [
+        {
+          title: 'aemApp.network.home.title',
+        },
+      ],
     },
     canActivate: [UserRouteAccessService],
   },

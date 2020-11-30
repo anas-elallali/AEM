@@ -2,7 +2,7 @@
   "aemApp": {
     "network": {
       "home": {
-        "title": "Networks",
+        "title": "Réseaux",
         "createLabel": "Créer un nouveau Network",
         "createOrEditLabel": "Créer ou éditer un Network",
         "notFound": "Aucun Network trouvé"
