@@ -2,10 +2,14 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
+*{
+  font-family: Roboto, sans-serif;
+  font-size: 0.9rem;
+}
+
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
-
 body,
 h1,
 h2,
