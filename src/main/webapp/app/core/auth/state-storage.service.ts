@@ -7,7 +7,7 @@ export class StateStorageService {
 
   constructor(private $sessionStorage: SessionStorageService) {}
 
-  storeUrl(url: string): void {
+  storeUrl(url: string | null): void {
     this.$sessionStorage.store(this.previousUrlKey, url);
   }
 

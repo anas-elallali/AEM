@@ -7,12 +7,15 @@ import { Authority } from 'app/shared/constants/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 
+import { LOGIN_PAGE_ROUTE } from 'app/layouts/login/login-page.route';
+
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
       [
+        LOGIN_PAGE_ROUTE,
         {
           path: 'admin',
           data: {

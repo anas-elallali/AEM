@@ -15,6 +15,7 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginPageComponent } from 'app/layouts/login/login-page.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AemEntityModule,
     AemAppRoutingModule,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    LoginPageComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AemAppModule {}
