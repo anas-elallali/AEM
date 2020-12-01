@@ -5,6 +5,10 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
+        path: 'structures',
+        loadChildren: () => import('./structures/structure.module').then(m => m.AemStructureModule),
+      },
+      {
         path: 'network',
         loadChildren: () => import('./network/network.module').then(m => m.AemNetworkModule),
       },

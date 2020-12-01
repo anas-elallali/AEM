@@ -2,7 +2,7 @@
   "aemApp": {
     "NetworkType": {
       "null": "",
-      "AEM_ENTITY": "AEM_ENTITY",
+      "AEM_ENTITY": "Structure",
       "AEM_RESIDENCE": "AEM_RESIDENCE",
       "AEM_SAAD": "AEM_SAAD",
       "AEM_SSIAD": "AEM_SSIAD",

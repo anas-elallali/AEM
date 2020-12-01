@@ -1,0 +1,86 @@
+<div>
+
+    <aem-breadcrumb></aem-breadcrumb>
+
+    <h2 id="page-heading">
+        <span jhiTranslate="aemApp.structure.home.title">Networks</span>
+
+        <button pButton pRipple type="button"
+                icon="pi pi-plus" label="{{'aemApp.structure.home.createLabel' | translate}}"
+                class="p-button-raised float-right"
+                [routerLink]="['/network/new']">
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="structures?.length === 0">
+        <span jhiTranslate="aemApp.structure.home.notFound">No networks found</span>
+    </div>
+
+    <div class="shadow-sm" *ngIf="structures && structures.length > 0">
+        <p-table [value]="structures" [customSort]="true">
+            <ng-template pTemplate="header">
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id" pSortableColumn="id"><span jhiTranslate="global.field.id">ID</span> <p-sortIcon field="id"></p-sortIcon></th>
+                    <th scope="col"  jhiSortBy="name" pSortableColumn="name"><span jhiTranslate="aemApp.structure.name">Name</span> <p-sortIcon field="name"></p-sortIcon></th>
+                    <th scope="col"  jhiSortBy="description" pSortableColumn="description"><span jhiTranslate="aemApp.structure.description">Description</span> <p-sortIcon field="description"></p-sortIcon></th>
+                    <th scope="col"  jhiSortBy="avatar" pSortableColumn="avatar"><span jhiTranslate="aemApp.structure.avatar">Avatar</span> <p-sortIcon field="avatar"></p-sortIcon></th>
+                    <th scope="col"  jhiSortBy="type" pSortableColumn="type"><span jhiTranslate="aemApp.structure.type">Type</span> <p-sortIcon field="type"></p-sortIcon></th>
+                    <th scope="col"  jhiSortBy="status" pSortableColumn="status"><span jhiTranslate="aemApp.structure.status">Status</span> <p-sortIcon field="status"></p-sortIcon></th>
+                    <th scope="col"  jhiSortBy="addressId" pSortableColumn="addressId"><span jhiTranslate="aemApp.structure.address">Address</span> <p-sortIcon field="addressId"></p-sortIcon></th>
+                    <th scope="col"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-network>
+                <tr>
+                    <td><a [routerLink]="['/network', network.id, 'view']">{{ network.id }}</a></td>
+                    <td>{{ network.name }}</td>
+                    <td>{{ network.description }}</td>
+                    <td>
+                        <a *ngIf="network.avatar" (click)="openFile(network.avatarContentType, network.avatar)">
+                            <img [src]="'data:' + network.avatarContentType + ';base64,' + network.avatar" style="max-height: 30px;" alt="network image"/>
+                        </a>
+                        <span *ngIf="network.avatar">{{ network.avatarContentType }}, {{ byteSize(network.avatar) }}</span>
+                    </td>
+                    <td jhiTranslate="{{ 'aemApp.NetworkType.' + network.type }}">{{ network.type }}</td>
+                    <td>{{ network.status }}</td>
+                    <td>
+                        <div *ngIf="network.addressId">
+                            <a [routerLink]="['/address', network.addressId , 'view']" >{{ network.addressId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                            <button pButton pRipple type="button"
+                                    icon="pi pi-eye" class="p-button-rounded p-button-warning"
+                                    [routerLink]="['/network', network.id, 'view']">
+                            </button>
+
+                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-info"
+                                    [routerLink]="['/network', network.id, 'edit']">
+                            </button>
+
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger"
+                                    (click)="delete(network)">
+                            </button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+    <div *ngIf="structures && structures.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

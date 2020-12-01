@@ -1,0 +1,27 @@
+{
+  "aemApp": {
+    "structure": {
+      "home": {
+        "title": "Structures",
+        "createLabel": "Créer une structure",
+        "createOrEditLabel": "Créer ou éditer une structure",
+        "notFound": "Aucune structure trouvée"
+      },
+      "created": "Une nouvelle structure a été créée avec l'identifiant {{ param }}",
+      "updated": "La structure avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La structure avec l'identifiant {{ param }} a été supprimée",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer la structure {{ id }} ?"
+      },
+      "detail": {
+        "title": "Structure"
+      },
+      "name": "Nom",
+      "description": "Description",
+      "avatar": "Avatar",
+      "type": "Type",
+      "status": "Statut",
+      "address": "Adresse"
+    }
+  }
+}

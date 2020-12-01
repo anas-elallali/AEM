@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'aem-breadcrumb',
-  template: ` <div *ngIf="items && items.length > 0" class="mt-2 mb-2">
+  template: ` <div *ngIf="items && items.length > 0" class="mt-2 mb-2 shadow-sm">
     <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   </div>`,
 })

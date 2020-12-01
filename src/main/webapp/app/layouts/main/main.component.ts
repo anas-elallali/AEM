@@ -4,6 +4,7 @@ import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from 'app/core/auth/account.service';
+import {PrimeNGConfig} from "primeng/api";
 
 @Component({
   selector: 'jhi-main',
@@ -17,6 +18,7 @@ export class MainComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private translateService: TranslateService,
+    private primengConfig: PrimeNGConfig,
     rootRenderer: RendererFactory2
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
@@ -40,6 +42,8 @@ export class MainComponent implements OnInit {
 
       this.renderer.setAttribute(document.querySelector('html'), 'lang', langChangeEvent.lang);
     });
+    // active ripple
+    this.primengConfig.ripple = true;
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
