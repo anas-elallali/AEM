@@ -16,12 +16,13 @@
       "detail": {
         "title": "Structure"
       },
-      "name": "Nom",
+      "id": "ID",
+      "name": "Name",
       "description": "Description",
       "avatar": "Avatar",
       "type": "Type",
-      "status": "Statut",
-      "address": "Adresse"
+      "status": "Status",
+      "address": "Address"
     }
   }
 }

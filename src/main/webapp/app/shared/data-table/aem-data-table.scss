@@ -1,0 +1,44 @@
+@import 'src/main/webapp/content/scss/aem-color-variables';
+::ng-deep {
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  .pagination-container {
+    & * {
+      color: $grey-anchor !important;
+    }
+    & > * {
+      align-self: center;
+    }
+    .item-count {
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+    .p-dropdown {
+      box-shadow: none !important;
+    }
+    .page-link {
+      padding: 0 !important;
+      background-color: transparent !important;
+      border: 0 none !important;
+      margin: 1px !important;
+    }
+
+    .page-item .page-link button,
+    .page-item.active .page-link button {
+      font-weight: bold;
+      color: $grey-anchor !important;
+    }
+
+    .page-item.active .page-link button {
+      background: $blue-sky-light !important;
+      border-color: $blue-sky-light !important;
+    }
+
+    .p-button.p-button-text:enabled:hover {
+      background: $blue-sky-light-hover !important;
+    }
+  }
+}

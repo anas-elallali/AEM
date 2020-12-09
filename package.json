@@ -9,6 +9,7 @@
   ],
   "dependencies": {
     "@angular/animations": "^10.0.0",
+    "@angular/cdk": "^10.0.0",
     "@angular/common": "10.0.0",
     "@angular/compiler": "10.0.0",
     "@angular/core": "10.0.0",
@@ -47,7 +48,7 @@
     "@types/chai-string": "1.4.2",
     "@types/jest": "26.0.3",
     "@types/mocha": "7.0.2",
-    "@types/node": "13.13.4",
+    "@types/node": "^13.13.4",
     "@types/selenium-webdriver": "4.0.9",
     "@types/sockjs-client": "1.1.1",
     "@typescript-eslint/eslint-plugin": "2.30.0",

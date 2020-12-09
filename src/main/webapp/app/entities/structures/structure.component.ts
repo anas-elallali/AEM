@@ -1,14 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, ParamMap, Router, Data } from '@angular/router';
-import { Subscription, combineLatest } from 'rxjs';
-import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
+import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
+import { combineLatest, Subscription } from 'rxjs';
+import { JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { INetwork } from 'app/shared/model/network.model';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { NetworkService } from '../network/network.service';
+import { IFieldsOfStructureList } from 'app/shared/model/data-table/structure.model';
+import { FieldsType } from 'app/shared/constants/data-table.constants';
+import { StructureService } from 'app/entities/structures/structure.service';
 
 @Component({
   selector: 'structure',
@@ -24,8 +26,10 @@ export class StructureComponent implements OnInit, OnDestroy {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  structureFieldsType?: IFieldsOfStructureList;
+
   constructor(
-    protected networkService: NetworkService,
+    protected structureService: StructureService,
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
@@ -33,10 +37,16 @@ export class StructureComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal
   ) {}
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
+  loadPage(page?: number, dontNavigate?: boolean, itemsPerPageCount?: number): void {
     const pageToLoad: number = page || this.page || 1;
+    this.itemsPerPage = itemsPerPageCount || ITEMS_PER_PAGE;
+    //TODO le cas de compoenent generique itemsPerPageCount tjrs null ??
 
-    this.networkService
+    console.log('AEL pageToLoad ', pageToLoad - 1);
+    console.log('AEL itemsPerPage', this.itemsPerPage);
+    console.log('AEL sort', this.sort());
+
+    this.structureService
       .query({
         page: pageToLoad - 1,
         size: this.itemsPerPage,
@@ -49,6 +59,7 @@ export class StructureComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.structureFieldsType = this.buildStructureFieldsType();
     this.handleNavigation();
     this.registerChangeInNetworks();
   }
@@ -56,6 +67,8 @@ export class StructureComponent implements OnInit, OnDestroy {
   protected handleNavigation(): void {
     combineLatest(this.activatedRoute.data, this.activatedRoute.queryParamMap, (data: Data, params: ParamMap) => {
       const page = params.get('page');
+      const size = params.get('size');
+      const itemsPerPage = size ? +size : this.itemsPerPage;
       const pageNumber = page !== null ? +page : 1;
       const sort = (params.get('sort') ?? data['defaultSort']).split(',');
       const predicate = sort[0];
@@ -63,7 +76,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
         this.predicate = predicate;
         this.ascending = ascending;
-        this.loadPage(pageNumber, true);
+        this.loadPage(pageNumber, true, itemsPerPage);
       }
     }).subscribe();
   }
@@ -92,12 +105,14 @@ export class StructureComponent implements OnInit, OnDestroy {
   }
 
   delete(structure: INetwork): void {
-    console.log("AEL network to delete ", structure)
+    console.log('AEL network to delete ', structure);
     // const modalRef = this.modalService.open(NetworkDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     // modalRef.componentInstance.network = network;
   }
 
   sort(): string[] {
+    console.log('AEL sort func predicate ', this.predicate);
+    console.log('AEL sort func ascending ', this.ascending);
     const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
@@ -108,6 +123,7 @@ export class StructureComponent implements OnInit, OnDestroy {
   protected onSuccess(data: INetwork[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
+    console.log('onSuccess', data);
     if (navigate) {
       this.router.navigate(['/structures'], {
         queryParams: {
@@ -123,5 +139,15 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ? this.page : 1;
+  }
+
+  private buildStructureFieldsType(): IFieldsOfStructureList {
+    return {
+      avatar: FieldsType.IMAGE,
+      name: FieldsType.TEXT,
+      description: FieldsType.TEXT,
+      type: FieldsType.TEXT,
+      status: FieldsType.TEXT,
+    };
   }
 }

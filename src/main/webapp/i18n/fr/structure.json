@@ -16,6 +16,7 @@
       "detail": {
         "title": "Structure"
       },
+      "id": "Identifiant",
       "name": "Nom",
       "description": "Description",
       "avatar": "Avatar",
